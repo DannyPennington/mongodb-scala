@@ -24,14 +24,14 @@ object Main extends App{
       collection.find.printResults()
     }
 
-  def editUser(person: String): Unit = {
-    val replacementDoc: Document = Document("name" -> "New person", "email" -> "newperson@fakemail.com")
-    collection.updateOne(equal("name", person), replacementDoc).printHeadResult("Update Result: ")
+  def editUser(id: Int, new_name: String, new_email: String): Unit = {
+    val replacementDoc: Document = Document("name" -> new_name, "email" -> new_email)
+    collection.replaceOne(equal("_id", id), replacementDoc).printHeadResult("Update Result: ")
 
   }
   //addUser("Person9", "person9@fakemail.com", 9)
   //Thread.sleep(1000)
-  //editUser("Person6")
+  editUser(6, "Person6","person6@fakemail.com")
   showUsers()
   Thread.sleep(1000)
 
