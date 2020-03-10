@@ -17,7 +17,7 @@ object Main extends App {
   //  override def onComplete(): Unit = println("onComplete")
   //})
 
-  collection.find().collect().subscribe((results: Seq[Document]) => println(s"Found: ${results.size} entries"))
+  collection.find().collect().subscribe((results: Seq[Document]) => println(s"Found: ${results(1)("name").asString().getValue} "))
   Thread.sleep(1000)
 
 }
