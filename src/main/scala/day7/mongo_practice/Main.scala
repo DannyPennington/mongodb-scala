@@ -1,8 +1,8 @@
 package day7.mongo_practice
 
 import org.mongodb.scala._
-import org.mongodb.scala.model.Filters
-import org.mongodb.scala.result.UpdateResult
+import org.mongodb.scala.model.Filters._
+import day7.mongo_practice.Helpers._
 
 object Main extends App{
   val client: MongoClient = MongoClient()
@@ -20,23 +20,18 @@ object Main extends App{
     })
   }
 
-  def showUsers():Unit = {
-
-    for (i <- 0 until 7) {
-      collection.find().collect().subscribe((results: Seq[Document]) => println(s"Name: ${results(i.toInt)("name").asString().getValue}, Email: ${results(i.toInt)("email").asString.getValue} "))
+  def showUsers(): Unit = {
+      collection.find.printResults()
     }
-  }
 
-
-  def editUser(id:Int):Unit = {
-    val replacementDoc: Document = Document("_id" -> 9, "name" -> "New person", "email" -> "newperson@fakemail.com")
-
-    collection.replaceOne(Filters.eq("name", "Jason"), replacementDoc).subscribe((updateResult: UpdateResult) => println(updateResult))
+  def editUser(person: String): Unit = {
+    val replacementDoc: Document = Document("name" -> "New person", "email" -> "newperson@fakemail.com")
+    collection.updateOne(equal("name", person), replacementDoc).printHeadResult("Update Result: ")
 
   }
-  //addUser("Person7", "person7@fakemail.com", 7)
+  //addUser("Person9", "person9@fakemail.com", 9)
   //Thread.sleep(1000)
-  editUser(3)
+  //editUser("Person6")
   showUsers()
   Thread.sleep(1000)
 
