@@ -29,9 +29,15 @@ object Main extends App{
     collection.replaceOne(equal("_id", id), replacementDoc).printHeadResult("Update Result: ")
 
   }
+
+  def deleteUser(id: Int): Unit = {
+    collection.deleteOne(equal("_id", id)).printHeadResult("Delete result: ")
+  }
+
   //addUser("Person9", "person9@fakemail.com", 9)
   //Thread.sleep(1000)
-  editUser(6, "Person6","person6@fakemail.com")
+  //editUser(6, "Person6","person6@fakemail.com")
+  deleteUser(9)
   showUsers()
   Thread.sleep(1000)
 
