@@ -18,6 +18,7 @@ object Main extends App {
   //})
 
   collection.find().collect().subscribe((results: Seq[Document]) => println(s"Found: ${results(1)("name").asString().getValue} "))
+
   Thread.sleep(1000)
 
 }
