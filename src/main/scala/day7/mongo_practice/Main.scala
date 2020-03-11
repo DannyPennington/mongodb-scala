@@ -13,5 +13,6 @@ object Main extends App {
   customers.addUser("Jason3", "jason3@fake.com")
   Thread.sleep(1000)
   customers.showUsers()
+  customers.deleteAll()
 
 }

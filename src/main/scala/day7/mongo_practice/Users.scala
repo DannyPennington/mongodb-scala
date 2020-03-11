@@ -3,6 +3,7 @@ package day7.mongo_practice
 import org.mongodb.scala.{Completed, Document, MongoClient, MongoCollection, MongoDatabase, Observable, Observer}
 import org.mongodb.scala.model.Filters._
 import Helpers._
+import myHelper.myHelper._
 
 class Users {
   val client: MongoClient = MongoClient()
@@ -12,15 +13,8 @@ class Users {
 
   def addUser(name:String, email:String): Unit = {
     val document:Document = Document("_id" -> usercount, "name" -> name, "email" -> email)
-    val insertObservable: Observable[Completed] = collection.insertOne(document)
+    collection.insertOne(document).subscribe(observeInsert)
     usercount += 1
-
-    insertObservable.subscribe(new Observer[Completed] {
-      override def onNext(result: Completed): Unit = println(s"$result")
-      override def onError(e: Throwable): Unit = println(s"Error: $e")
-      override def onComplete(): Unit = println("")
-    })
-
   }
 
   def showUsers(): Unit = {
